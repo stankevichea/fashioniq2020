@@ -1,2 +1,2 @@
-# fashioniq2020
-Project inspired by the FashionIQ 2020 challenge, done as a part of a "Introduction to Machine Learning" course.
+# FashionIQ 2020
+Project inspired by the [FashionIQ 2020](https://sites.google.com/view/cvcreative2020/fashion-iq) challenge, done as a part of an "Introduction to Machine Learning" course.
