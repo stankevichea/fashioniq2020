@@ -34,7 +34,7 @@ class CaptionsProcessor(object):
                 text = text + lemmatized_tokens
                 target_captions = target_captions + lemmatized_tokens
                 
-            self.captions[target] = target_captions
+            self.captions[target] = list(set(target_captions))
 
         self.text = text
         return
