@@ -29,13 +29,21 @@ class CaptionsProcessor(object):
         stop_words = set(stopwords.words('english'))
         wnl = WordNetLemmatizer()
 
+        def correct_word(word):
+            if wnl.check(word):
+                return word
+
+            sugg = wnl.suggest(word)
+            return sugg[0] if sugg else word
+
         for i in range(len(data)):
             captions = data[i]['captions']
             target = data[i]['target']
             target_captions = []
             for caption in captions:
                 tokens = nltk.tokenize.word_tokenize(caption.lower())
-                filtered_tokens = [w for w in tokens if not w in stop_words]
+                corrected_words = [correct_word(w) for w in tokens]
+                filtered_tokens = [w for w in corrected_words if not w in stop_words]
                 lemmatized_tokens = [wnl.lemmatize(w) for w in filtered_tokens]
                 text = text + lemmatized_tokens
                 target_captions = target_captions + lemmatized_tokens
