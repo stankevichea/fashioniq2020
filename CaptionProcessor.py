@@ -1,9 +1,9 @@
 import nltk
 import argparse
-from nltk.corpus import stopwords 
+from nltk.corpus import stopwords
 # You need to run this to get the stopwords
 # nltk.download('stopwords')
-from nltk.tokenize import word_tokenize 
+from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.util import ngrams
 from collections import Counter
@@ -26,7 +26,7 @@ class CaptionsProcessor(object):
         data = json.load(open(cap_file, 'r'))
 
         text = []
-        stop_words = set(stopwords.words('english')) 
+        stop_words = set(stopwords.words('english'))
         wnl = WordNetLemmatizer()
 
         for i in range(len(data)):
@@ -35,17 +35,17 @@ class CaptionsProcessor(object):
             target_captions = []
             for caption in captions:
                 tokens = nltk.tokenize.word_tokenize(caption.lower())
-                filtered_tokens = [w for w in tokens if not w in stop_words] 
+                filtered_tokens = [w for w in tokens if not w in stop_words]
                 lemmatized_tokens = [wnl.lemmatize(w) for w in filtered_tokens]
                 text = text + lemmatized_tokens
                 target_captions = target_captions + lemmatized_tokens
-                
+
             # apparently there are no repetitions in the training set
             self.captions[target] = target_captions
 
         self.text = text
         return
-    
+
     def load_captions_simple(self, cap_file):
         import json
         data = json.load(open(cap_file, 'r'))
@@ -54,7 +54,7 @@ class CaptionsProcessor(object):
 
         for i in range(len(data)):
             captions = data[i]['captions']
-            target = data[i]['target']  
+            target = data[i]['target']
             self.captions[target] += captions
         return
 
@@ -91,7 +91,7 @@ class CaptionsProcessor(object):
         for key in self.labels:
             self.labels[key] = list(set(self.labels[key]))
 
-        data['labels'] = self.labels      
+        data['labels'] = self.labels
         import json
         with open(file_name, 'w') as f:
             json.dump(data, f, indent=4)
@@ -114,11 +114,11 @@ class SimpleLabeller(object):
 
         self.labels = set(colors + lengths + parts)
         return
-    
+
     def load_negations(self, negation_file):
         import json
         data = json.load(open(negation_file, 'r'))
-        
+
         self.negations = set(data["negations"])
         return
 
