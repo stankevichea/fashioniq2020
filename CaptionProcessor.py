@@ -32,10 +32,10 @@ class CaptionsProcessor(object):
         d = enchant.Dict("en_US")
 
         def correct_word(word):
-            if e.check(word):
+            if d.check(word):
                 return word
 
-            sugg = e.suggest(word)
+            sugg = d.suggest(word)
             return sugg[0] if sugg else word
 
         def lemmatize_word(word):
