@@ -1,5 +1,6 @@
 import nltk
 import argparse
+import enchant
 from nltk.corpus import stopwords
 # You need to run this to get the stopwords
 # nltk.download('stopwords')
@@ -28,12 +29,13 @@ class CaptionsProcessor(object):
         text = []
         stop_words = set(stopwords.words('english'))
         wnl = WordNetLemmatizer()
+        d = enchant.Dict("en_US")
 
         def correct_word(word):
-            if wnl.check(word):
+            if e.check(word):
                 return word
 
-            sugg = wnl.suggest(word)
+            sugg = e.suggest(word)
             return sugg[0] if sugg else word
 
         def lemmatize_word(word):
