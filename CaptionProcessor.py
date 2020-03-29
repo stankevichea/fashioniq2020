@@ -10,7 +10,7 @@ from nltk.util import ngrams
 from collections import Counter
 from collections import defaultdict
 
-CAP_FILE = 'captions/cap.{}.dress.json'
+CAP_FILE = 'captions/cap.{}.train.json'
 OUTPUT_FILE = 'captions/dict.{}.json'
 FEATURE_FILE = 'recognized_features.{}.json'
 NEGATION_FILE = 'negations.json'
