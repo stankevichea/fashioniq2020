@@ -72,12 +72,12 @@ class CaptionsProcessor(object):
 
         for target in captions:
             res_captions[target] += [lemmatize_word(w) for w in captions[target]]
-        
+ 
         return res_captions
 
     def map_unkown_words(self, dictionary, captions):
         res_captions = defaultdict(list)
-        
+
         def map_word(word):
             if(word in dictionary.all):
                 return word
