@@ -10,9 +10,9 @@ from nltk.util import ngrams
 from collections import Counter
 from collections import defaultdict
 
-CAP_FILE = 'captions/cap.{}.train.json'
+CAP_FILE = 'captions/cap.{}.json'
 OUTPUT_FILE = 'captions/dict.{}.json'
-FEATURE_FILE = 'recognized_features.{}.json'
+FEATURE_FILE = 'recognized_features.json'
 NEGATION_FILE = 'negations.json'
 
 class CaptionsProcessor(object):
@@ -164,13 +164,13 @@ class SimpleDictionary(object):
 
 def main(args):
     proc = CaptionsProcessor()
-    dictionary = SimpleDictionary(label_file=FEATURE_FILE.format(args.data_set), negation_file=NEGATION_FILE.format(args.data_set))
+    dictionary = SimpleDictionary(label_file=FEATURE_FILE, negation_file=NEGATION_FILE)
     proc.load_captions(cap_file=CAP_FILE.format(args.data_set))
     proc.process_captions(dictionary)
     proc.save(file_name=OUTPUT_FILE.format(args.data_set))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_set', type=str, default='dress')
+    parser.add_argument('--data_set', type=str, default='dress.train')
     args = parser.parse_args()
     main(args)

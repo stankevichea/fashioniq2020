@@ -127,4 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-captions/dict.dress.json
+
+captions/dict.*.*.json
