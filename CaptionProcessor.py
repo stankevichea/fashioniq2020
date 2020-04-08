@@ -1,7 +1,7 @@
 import nltk
 import argparse
 import enchant
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords, wordnet
 # You need to run this to get the stopwords
 # nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
@@ -92,11 +92,11 @@ class CaptionsProcessor(object):
         for target in captions:
             target_labels = []
             for ngram in ngrams(["<dummy>"] + captions[target], 2):
-                if ngram[0] in dictionary.negations and ngram[1] in dictionary.labels:
-                    label = "NOT_" + ngram[1]
+                if ngram[0] in dictionary.negations and ngram[1] in dictionary.prelabels:
+                    label = "NOT_" + dictionary.prelabels[ngram[1]]
                     target_labels.append(label)
                 elif ngram[1] in dictionary.labels:
-                    label = ngram[1]
+                    label = dictionary.prelabels[ngram[1]]
                     target_labels.append(label)
             self.labels[target] += target_labels
         return
@@ -144,6 +144,14 @@ class SimpleDictionary(object):
         parts = data['part']
 
         self.labels = set(colors + lengths + parts)
+        self.prelabels = {}
+
+        for word in self.labels:
+            for synset in wordnet.synsets(word):
+                for lemma in synset.lemmas():
+                    new_word = lemma.name()
+                    if '_' not in new_word:
+                        self.prelabels[new_word] = word
         return
 
     def load_negations(self, negation_file):

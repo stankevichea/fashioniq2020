@@ -1,5 +1,5 @@
 {
-    "color" : ["red", "orange", "yellow", "pink", "turqoise", "cobalt blue", "blue", "violet", "green", "brown", "gray", "black", "white"],
+    "color" : ["red", "orange", "yellow", "pink", "turquoise", "cobalt", "blue", "violet", "green", "brown", "gray", "black", "white"],
     "length" : ["long", "short"],
     "part" : ["sleeve", "collar"]
 }
